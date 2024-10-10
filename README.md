@@ -1,1 +1,10 @@
-# ramsey-game-backend
+# Ramsey Game Backend
+
+Local dev server setup
+
+```
+$ python3 -m venv .venv
+$ . .venv/bin/activate
+$ pip install -r requirements.txt
+$ flask run
+```
