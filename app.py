@@ -1,11 +1,8 @@
 from flask import Flask
+from flask_cors import CORS
 
 app = Flask(__name__)
-
-@app.after_request
-def request_callback(response):
-    response.headers['Access-Control-Allow-Origin'] = '*'
-    return response
+cors = CORS(app)
 
 @app.route("/")
 def hello_world():
