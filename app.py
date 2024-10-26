@@ -17,9 +17,13 @@ def play():
     if (content_type != 'application/json'):
         return 'Content-Type not supported'
 
-    edges = request.json.get('data').get('graph').get('edges')
+    data = request.json.get('data')
 
-    available_edges = list(filter(lambda x: "style" not in x, edges))
+    graph = data.get('graph')
+
+    edges = graph.get('edges')
+
+    available_edges = list(filter(lambda x: x.get('team') == 'none', edges))
 
     random_edge = random.choice(available_edges)
 
