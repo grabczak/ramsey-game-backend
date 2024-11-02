@@ -32,8 +32,4 @@ def play():
 
     best_edge = find_best(edges, target_clique_size)
 
-    available_edges = list(filter(lambda x: x.get('team') == 'none', edges))
-
-    random_edge = random.choice(available_edges)
-
     return best_edge
