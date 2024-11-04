@@ -32,8 +32,10 @@ def play():
 
     data = find_best(edges, target_clique_size)
 
-    # best_edge = data['edge']
+    best_edge = data['edge']
 
-    # return best_edge
+    print(data['clique'])
+
+    return best_edge
 
     return data
