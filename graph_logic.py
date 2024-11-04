@@ -1,41 +1,5 @@
 import networkx as nx
 
-# Poniżej archiwalne brednie i herezje.
-# Niebawem je usunę ale gdyby ktoś chciał poszperać
-# w starym kodzie to na razie zostawiam
-#
-# Obecnie ta funkcja nie jest potrzebna ale
-# na razie tylko zakomentowałem jakby się
-# jednak okazało że będzie potrzebna
-#
-# def connect(Graph): 
-#     connections = []
-#     nodes = list(Graph.nodes)
-#     edges = list(Graph.edges)
-#     for i in range(len(nodes)):
-#         connections.append([nodes[i]])
-#         for j in range(len(edges)):
-#             if edges[j][0] == nodes[i]:
-#                 connections[i].append(edges[j][1])
-#             if edges[j][1] == nodes[i]:
-#                 connections[i].append(edges[j][0])
-#     return connections
-
-
-# Wersja 1.0 funkcji sprawdzająca czy gra się skończyła
-# na razie zostawiam jakby ktoś chciał się z tym jeszcze
-# pomęczyć
-#
-# def win_check(connections, k):  
-#     for i in range(len(connections)):
-#         counter = 0
-#         for j in range(len(connections)):
-#             if (len(connections[j]) >= k) & (set(connections[i]).issubset(set(connections[j]))):
-#                 counter += 1
-#         if counter >= k:
-#             return True
-#     return False
-
 def win_check(graph, k):    
     clique = max(nx.find_cliques(graph), key = len)
     
@@ -63,6 +27,13 @@ def find_best(edges, k):
     server_graph = nx.Graph([(u, v) for u,v,e in nxgraph.edges(data = True) if e['team'] == 'server'])
     available_edges = nx.Graph([(u, v) for u,v,e in nxgraph.edges(data = True) if e['team'] == 'none'])
 
+    if win_check(browser_graph, k):
+        source, target = list(available_edges.edges())[0]
+        best_edge = list(filter(lambda x: (int(x.get('source')) == source and int(x.get('target')) == target) or (int(x.get('source')) == target and int(x.get('target')) == source), edges))[0]
+        data = {'edge': best_edge,
+                'winner': 'browser'}
+        return data 
+
     losing_edge = 0
     for i in range(len(list(available_edges.edges))):
 
@@ -74,7 +45,9 @@ def find_best(edges, k):
             server_graph.remove_edge(*edge)
             source, target = edge
             best_edge = list(filter(lambda x: (int(x.get('source')) == source and int(x.get('target')) == target) or (int(x.get('source')) == target and int(x.get('target')) == source), edges))[0]
-            return best_edge
+            data = {'edge': best_edge,
+                    'winner': 'server'}
+            return data
         
         server_graph.remove_edge(*edge)
 
@@ -91,9 +64,10 @@ def find_best(edges, k):
     source, target = found_edge
     best_edge = list(filter(lambda x: (int(x.get('source')) == source and int(x.get('target')) == target) or (int(x.get('source')) == target and int(x.get('target')) == source), edges))[0]
 
-    return best_edge
+    data = {'edge': best_edge,
+            'winner': 'none'}
 
-
+    return data
 
 def json_to_networkx(jedges):
     # --------------------------------------------
