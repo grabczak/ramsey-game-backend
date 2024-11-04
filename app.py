@@ -4,6 +4,8 @@ from flask_cors import CORS
 import json
 import random
 
+from graph_logic import json_to_networkx, find_best
+
 app = Flask(__name__)
 cors = CORS(app)
 
@@ -20,16 +22,14 @@ def play():
 
     data = request.json.get('data')
 
-    print(json.dumps(data, indent = 4))
+    target_clique_size = data.get('target_clique_size')
+
+    # print(json.dumps(data, indent = 4))
 
     graph = data.get('graph')
 
     edges = graph.get('edges')
 
-    available_edges = list(filter(lambda x: x.get('team') == 'none', edges))
+    best_edge = find_best(edges, target_clique_size)
 
-    random_edge = random.choice(available_edges)
-
-    target_clique_size = data.get('target_clique_size')
-
-    return random_edge
+    return best_edge
