@@ -30,12 +30,10 @@ def play():
 
     edges = graph.get('edges')
 
-    data = find_best(edges, target_clique_size)
+    graph_data = find_best(edges, target_clique_size)
 
-    best_edge = data['edge']
+    # best_edge = graph_data['edge']
 
-    print(data['clique'])
+    # return best_edge
 
-    return best_edge
-
-    return data
+    return graph_data

@@ -54,6 +54,9 @@ def find_best(edges, k):
             best_edge = list(filter(lambda x: (int(x.get('source')) == source and int(x.get('target')) == target) or (int(x.get('source')) == target and int(x.get('target')) == source), edges))[0]
             clique_edges = clique_to_json(clique, edges)
 
+            for j in range(len(edges)):
+                edges[j]['team'] = 'server'
+
             data = {'edge': best_edge,
                     'winner': 'server',
                     'clique': clique_edges}
@@ -99,8 +102,6 @@ def clique_to_json(nodes, edges):
     jedges = []
     for i in range(len(nodes) - 1):
         for j in list(range(i + 1, len(nodes))):
-            print(j)
-            print(list(range(i, len(nodes))))
             edge = list(filter(lambda x: (int(x.get('source')) == nodes[i] and int(x.get('target')) == nodes[j]) or (int(x.get('source')) == nodes[j] and int(x.get('target')) == nodes[i]), edges))[0]
             jedges.append(edge)
     return jedges
