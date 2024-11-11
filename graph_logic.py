@@ -30,14 +30,23 @@ def find_best(edges, k):
     check, clique = win_check(browser_graph, k)
 
     if check:
-        source, target = list(available_edges.edges())[0]
-        any_edge = list(filter(lambda x: (int(x.get('source')) == source and int(x.get('target')) == target) or (int(x.get('source')) == target and int(x.get('target')) == source), edges))[0]
         clique_edges = clique_to_json(clique, edges)
 
-        data = {'edge': any_edge,
+        data = {'edge': None,
                 'winner': 'browser',
                 'clique': clique_edges}
         return data 
+    
+    if len(list(available_edges.edges())) <= 1:
+        if len(list(available_edges.edges())) == 1:
+            source, target = list(available_edges.edges())[0]
+            last_edge = list(filter(lambda x: (int(x.get('source')) == source and int(x.get('target')) == target) or (int(x.get('source')) == target and int(x.get('target')) == source), edges))[0]
+        else:
+            last_edge = None
+        data = data = {'edge': last_edge,
+                'winner': 'draw',
+                'clique': []}
+        return data
 
     losing_edge = 0
     for i in range(len(list(available_edges.edges))):
@@ -83,7 +92,7 @@ def find_best(edges, k):
 
     data = {'edge': best_edge,
             'winner': 'none',
-            'clique': 'none'}
+            'clique': []}
 
     return data
 
