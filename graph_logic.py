@@ -3,7 +3,7 @@ import networkx as nx
 def win_check(graph, k):
     clique = max(nx.find_cliques(graph), key=len)
 
-    return (len(clique) >= k, clique)
+    return (len(clique) >= k, sorted(clique))
 
 
 def find_best(edges, k):
