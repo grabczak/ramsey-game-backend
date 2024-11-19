@@ -27,7 +27,7 @@ def test_json_to_networkx2():
     assert len(graph.edges) == 2
     assert (1, 2) in graph.edges
     assert graph.edges[1, 2]["team"] == "user1"
-    assert graph.edges[2, 3]["team"] == "user2 "
+    assert graph.edges[2, 3]["team"] == "user2"
 
 def test_json_to_networkx3():
     #only one edge
