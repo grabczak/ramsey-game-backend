@@ -1,5 +1,6 @@
 import networkx as nx
 
+
 def win_check(graph, k):
     clique = max(nx.find_cliques(graph), key=len)
 
@@ -9,9 +10,9 @@ def win_check(graph, k):
 def find_best(edges, k):
     nxgraph = json_to_networkx(edges)
 
-    browser_graph = filter_nxgraph(nxgraph, 'browser')
-    server_graph = filter_nxgraph(nxgraph, 'server')
-    available_edges = filter_nxgraph(nxgraph, 'none')
+    browser_graph = filter_nxgraph(nxgraph, "browser")
+    server_graph = filter_nxgraph(nxgraph, "server")
+    available_edges = filter_nxgraph(nxgraph, "none")
 
     check, clique = win_check(browser_graph, k)
 
@@ -63,7 +64,7 @@ def find_best(edges, k):
             browser_graph.remove_edge(*edge)
 
     found_edge = list(available_edges.edges())[losing_edge]
-    
+
     source, target = found_edge
 
     best_edge = create_json_edge(source, target)
@@ -72,10 +73,11 @@ def find_best(edges, k):
 
     return data
 
+
 def json_to_networkx(jedges):
     nxgraph = nx.Graph()
 
-    for i in range(len(jedges)):       
+    for i in range(len(jedges)):
         nxgraph.add_edge(
             int(jedges[i]["source"]), int(jedges[i]["target"]), team=jedges[i]["team"]
         )
@@ -93,6 +95,7 @@ def clique_to_json(nodes, team):
 
     return jedges
 
+
 def create_json_edge(source, target, team="none"):
 
     jedge = {
@@ -103,6 +106,7 @@ def create_json_edge(source, target, team="none"):
     }
 
     return jedge
+
 
 def filter_nxgraph(nxgraph, filter):
     filtered_graph = nx.Graph()

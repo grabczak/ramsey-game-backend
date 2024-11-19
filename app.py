@@ -9,26 +9,28 @@ from graph_logic import json_to_networkx, find_best
 app = Flask(__name__)
 cors = CORS(app)
 
-@app.route('/')
+
+@app.route("/")
 def hello_world():
-    return '<p>Hello, World!</p>'
+    return "<p>Hello, World!</p>"
 
-@app.route('/play', methods=['POST'])
+
+@app.route("/play", methods=["POST"])
 def play():
-    content_type = request.headers.get('Content-Type')
-    
-    if (content_type != 'application/json'):
-        return 'Content-Type not supported'
+    content_type = request.headers.get("Content-Type")
 
-    data = request.json.get('data')
+    if content_type != "application/json":
+        return "Content-Type not supported"
 
-    target_clique_size = data.get('target_clique_size')
+    data = request.json.get("data")
+
+    target_clique_size = data.get("target_clique_size")
 
     # print(json.dumps(data, indent = 4))
 
-    graph = data.get('graph')
+    graph = data.get("graph")
 
-    edges = graph.get('edges')
+    edges = graph.get("edges")
 
     graph_data = find_best(edges, target_clique_size)
 
