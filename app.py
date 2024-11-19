@@ -30,10 +30,10 @@ def play():
 
     edges = graph.get('edges')
 
-    best_edge = find_best(edges, target_clique_size)
+    graph_data = find_best(edges, target_clique_size)
 
-    available_edges = list(filter(lambda x: x.get('team') == 'none', edges))
+    # best_edge = graph_data['edge']
 
-    random_edge = random.choice(available_edges)
+    # return best_edge
 
-    return best_edge
+    return graph_data
