@@ -15,8 +15,9 @@ def test_json_to_networkx1():
     assert len(graph.nodes) == 0
     assert len(graph.edges) == 0
 
+
 def test_json_to_networkx2():
-    #two egdes
+    # two egdes
     jedges = [
         {"id": "1-2", "source": 1, "target": 2, "team": "user1"},
         {"id": "2-3", "source": 2, "target": 3, "team": "user2"},
@@ -29,11 +30,10 @@ def test_json_to_networkx2():
     assert graph.edges[1, 2]["team"] == "user1"
     assert graph.edges[2, 3]["team"] == "user2"
 
+
 def test_json_to_networkx3():
-    #only one edge
-    jedges = [
-        {"id": "2-3", "source": 2, "target": 3, "team": "none"}
-    ]
+    # only one edge
+    jedges = [{"id": "2-3", "source": 2, "target": 3, "team": "none"}]
     graph = json_to_networkx(jedges)
 
     assert len(graph.nodes) == 2
@@ -44,29 +44,33 @@ def test_json_to_networkx3():
 def test_json_to_networkx4():
     # same edges
     jedges = [
-        {"id":"1-2", "source": 1, "target": 2, "team": "browser"},
-        {"id":"1-2", "source": 1, "target": 2, "team": "browser"},
+        {"id": "1-2", "source": 1, "target": 2, "team": "browser"},
+        {"id": "1-2", "source": 1, "target": 2, "team": "browser"},
     ]
     graph = json_to_networkx(jedges)
 
     assert len(graph.nodes) == 2
-    assert len(graph.edges) == 1 
+    assert len(graph.edges) == 1
     assert graph.edges[1, 2]["team"] == "browser"
+
 
 def test_json_to_networkx5():
     jedges = [
-        {"id":"1-2", "source": 1, "target": 1, "team": "browser"},
-        {"id":"1-2", "source": 1, "target": 2, "team": "browser"},
+        {"id": "1-2", "source": 1, "target": 1, "team": "browser"},
+        {"id": "1-2", "source": 1, "target": 2, "team": "browser"},
     ]
     graph = json_to_networkx(jedges)
 
     assert len(graph.nodes) == 2
-    assert len(graph.edges) == 2 
+    assert len(graph.edges) == 2
     assert graph.edges[1, 2]["team"] == "browser"
 
 
 def test_json_to_networkx6():
-    jedges = [{"id": "{i}-{i+1}", "source": i, "target": i + 1, "team": f"Team {i}"} for i in range(10)]
+    jedges = [
+        {"id": "{i}-{i+1}", "source": i, "target": i + 1, "team": f"Team {i}"}
+        for i in range(10)
+    ]
     graph = json_to_networkx(jedges)
 
     assert len(graph.nodes) == 11

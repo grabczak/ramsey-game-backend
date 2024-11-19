@@ -2,8 +2,9 @@ import pytest
 import networkx as nx
 from graph_logic import filter_nxgraph
 
+
 def tests_filter_nxgraph1():
-    #empty graph
+    # empty graph
     nxgraph = nx.Graph()
 
     filtered_graph = filter_nxgraph(nxgraph, "A")
@@ -20,8 +21,9 @@ def tests_filter_nxgraph2():
 
     filtered_graph = filter_nxgraph(nxgraph, "C")
 
-    assert len(filtered_graph.nodes) == 3  
-    assert len(filtered_graph.edges) == 0  
+    assert len(filtered_graph.nodes) == 3
+    assert len(filtered_graph.edges) == 0
+
 
 def tests_filter_graph3():
     # an edge is in wrong format
@@ -36,7 +38,7 @@ def tests_filter_graph3():
 
 
 def tests_filter_nxgraph4():
-    #graph with diffrent teams 
+    # graph with diffrent teams
     nxgraph = nx.Graph()
     nxgraph.add_edge(1, 2, team="A")
     nxgraph.add_edge(2, 3, team="B")
@@ -58,6 +60,7 @@ def tests_filter_nxgraph4():
     assert (3, 4) in filtered_graph_c.edges
     assert (1, 4) in filtered_graph_c.edges
     assert (2, 4) in filtered_graph_c.edges
+
 
 def tests_filter_nxgraph5():
     nxgraph = nx.Graph()

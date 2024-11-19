@@ -4,10 +4,12 @@ from graph_logic import clique_to_json
 
 # function clique_to_json changes nodes and team to graph in json format
 
+
 def test_clique_to_json1():
-    # empty clique    
+    # empty clique
     result = clique_to_json([], "server")
     assert result == []
+
 
 def test_clique_to_json2():
     result = clique_to_json([1, 2, 3], "A")
@@ -22,12 +24,11 @@ def test_clique_to_json2():
 def test_clique_to_json3():
     # only one node i clique expectes empty list of edges
     result = clique_to_json([2], "none")
-    assert result == [] 
-
+    assert result == []
 
 
 def test_clique_to_json4():
-    #clique of 4 nodes
+    # clique of 4 nodes
     result = clique_to_json([1, 2, 3, 4, 5], "browser")
     expected = [
         {"id": "1-2", "source": 1, "target": 2, "team": "browser"},
@@ -45,6 +46,6 @@ def test_clique_to_json4():
 
 
 def tests_clique_to_json5():
-    #wrong amount of parameters
+    # wrong amount of parameters
     with pytest.raises(TypeError):
         clique_to_json([1, 2, 3])
